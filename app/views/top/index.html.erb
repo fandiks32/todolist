@@ -1,0 +1,68 @@
+<!-- CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Entire bundle -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.js"></script>
+<!-- legacy bundle for older browsers (IE11) -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.legacy.js"></script>
+<!-- Draggable only -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.js"></script>
+<!-- Sortable only -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/sortable.js"></script>
+<!-- Droppable only -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/droppable.js"></script>
+<!-- Swappable only -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/swappable.js"></script>
+<!-- Plugins only -->
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/plugins.js"></script>
+
+<!-- CDN -->
+
+
+
+<table class="highlight">
+  <thead>
+    <tr>
+      <th></th>
+      <th>TODO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td></td>
+      <td> <%= task.description %></td>
+      <td>
+	<!-- Switch -->
+	<div class="switch">
+	  Mark as DONE
+	  <label>
+	    <input type="checkbox">
+	    <span class="lever"></span>
+	  </label>
+	</div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <%= form_tag({ action: 'create' }, class: 'col s12') do %>
+  <div class="row">
+    <div class="input-field col s12">
+      <input placeholder="Read One Piece on this friday." id="todo_desc" type="text" class="validate" name="description">
+      <label for="todo_desc">TODO desc</label>
+    </div>
+  </div>
+  <div class="row">
+    <button class="btn waves-effect waves-light col s12" type="submit" name="action">OK
+      <i class="material-icons right"></i>
+    </button>
+  </div>
+  <% end %>
+</div>
