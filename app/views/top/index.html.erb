@@ -21,48 +21,103 @@
 <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/plugins.js"></script>
 
 <!-- CDN -->
-
-
-
-<table class="highlight">
-  <thead>
-    <tr>
-      <th></th>
-      <th>TODO</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-    <tr>
-      <td></td>
-      <td> <%= task.description %></td>
-      <td>
-	<!-- Switch -->
-	<div class="switch">
-	  Mark as DONE
-	  <label>
-	    <input type="checkbox">
-	    <span class="lever"></span>
-	  </label>
-	</div>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<div class="row">
-  <%= form_tag({ action: 'create' }, class: 'col s12') do %>
+<br /> <br />
+<div class="container align-center">
   <div class="row">
-    <div class="input-field col s12">
-      <input placeholder="Read One Piece on this friday." id="todo_desc" type="text" class="validate" name="description">
-      <label for="todo_desc">TODO desc</label>
+    <h3>My-TODO</h3>
+    <%= form_tag({ action: 'create' }, class: 'col s12') do %>
+    <div class="row">
+      <div class="input-field col s2 offset-s3">
+	<input placeholder="til ?.." id="task_deadline" name="deadline" type="text" class="datepicker" />
+	<label for="todo_deadline">Deadline</label>
+      </div>
+      <div class="input-field col s4">
+	<textarea placeholder="Read One Piece on this friday." id="todo_desc" type="text" class="materialize-textarea" name="description" required="true"></textarea>
+	<label for="todo_desc">TODO desc</label>
+      </div>
+      <div class="row">
+	<button class="btn waves-effect waves-light col s12" type="submit" name="action">Create
+	  <i class="material-icons right"></i>
+	</button>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <label class="col s2 offset-s2">
+	<input type="checkbox" />
+	<span>Show all</span>
+      </label>
+    </div>
+    <div class="row">
+      <table class="highlight col s8 offset-s2">
+	<thead>
+	  <tr>
+	    <th></th>
+	    <th>Deadline</th>
+	    <th>TODO</th>
+	    <th>status </th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @tasks.each do |task| %>
+	  <tr class='task_<%= task.status %>'>
+	    <td></td>
+	    <td> <%= task.deadline&.strftime('%Y-%m-%d')    %></td>
+	    <td> <%= task.description %></td>
+	    <td>
+	      <div class="switch">
+		Mark as DONE
+		<label>
+		  <input <%= task.done? ? 'checked' : '' %> type="checkbox" data-taskid="<%= task.id %>" data-status="<%= task.status %>" onclick="updateStatus(this);">
+		  <span class="lever"></span>
+		</label>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
     </div>
   </div>
-  <div class="row">
-    <button class="btn waves-effect waves-light col s12" type="submit" name="action">OK
-      <i class="material-icons right"></i>
-    </button>
-  </div>
-  <% end %>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+  $('.datepicker').datepicker();
+  hideDoneTasks();
+  });
+
+  function hideDoneTasks(){
+    $('.task_done').hide();
+  }
+
+  function showDoneTasks(){
+  $('.task_done').hide();
+  }
+
+function updateStatus(selector){
+  let obj = $(selector);
+  let targetStatus;
+  if(obj.data().status == 'done') {
+    targetStatus = '';
+  } else {
+    targetStatus = 'done';
+  }
+  obj.data('status', targetStatus);
+  $.ajax({
+    type: "POST", 
+    url: "top/update_status",
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    data: { id: obj.data().taskid, status: targetStatus },
+    success: function(data, textStatus, jqXHR){ },
+    error: function(jqXHR, textStatus, errorThrown){ }
+  })
+}
+</script>
