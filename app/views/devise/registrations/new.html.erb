@@ -1,0 +1,72 @@
+
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      border-bottom: 2px solid #e91e63;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="section"></div>
+  <main>
+    <center>
+      <h2>MY-TODO</h2>
+      <div class="section"></div>
+      <h5 class="indigo-text">Sign up</h5>
+      <div class="section"></div>
+      <div class="container">
+	<div class="z-depth-1 grey lighten-4 row" style="display: inline-block;padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+	  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'col s12', id: 'reg-form') do |f| %>
+	  <%= render "devise/shared/error_messages", resource: resource %>
+	  <div class="row">
+	    <%= content_tag(:div, f.text_field(:firstname) + content_tag(:label, 'Firstname', for: 'user_firstname'), class: 'input-field col s6') %>
+	    <%= content_tag(:div, f.text_field(:lastname) + content_tag(:label, 'Lastname', for: 'user_lastname'), class: 'input-field col s6') %>
+	  </div>
+	  <div class='row'>
+	    <%= content_tag(:div, f.email_field(:email) + content_tag(:label, 'Email', for: 'user_email'), { class: 'input-field col s12' }) %>
+	  </div>
+	  <div class='row'>
+	    <%= content_tag(:div, f.password_field(:password) + content_tag(:label, 'New password', for: 'user_password'), class: 'input-field col s12') %>
+	  </div>
+	  <div class='row'>
+	    <%= content_tag(:div, f.password_field(:password_confirmation) + content_tag(:label, 'Re-type your password', for: 'user_password_confirmation'), class: 'input-field col s12') %>
+	  </div>
+	  <div class="row">
+	    <%= content_tag(:div, f.submit('Register', class: 'col s13 btn btn-medium waves-effect indigo'), class: 'input-field col s6') %>
+	  </div>
+	  <% end %>
+	</div>
+      </div>
+      <%= render(partial: 'devise/shared/links') %>
+    </center>
+  </main>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</body>
