@@ -22,6 +22,9 @@
 
 <!-- CDN -->
 <br /> <br />
+<div class="row">
+  <%= link_to('Sign out', destroy_user_session_path(current_user)) %>
+</div>
 <div class="container align-center">
   <div class="row">
     <h3>My-TODO</h3>
