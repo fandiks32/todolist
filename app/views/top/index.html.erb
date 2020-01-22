@@ -23,11 +23,11 @@
 <!-- CDN -->
 <br /> <br />
 <div class="row">
-  <%= link_to('Sign out', destroy_user_session_path(current_user)) %>
+  <%= link_to('Sign out', destroy_user_session_path(current_user), class: 'waves-effect waves-light btn red col s1 offset-s11') %>
 </div>
 <div class="container align-center">
   <div class="row">
-    <h3>My-TODO</h3>
+    <h3>My-Todo</h3>
     <%= form_tag({ action: 'create' }, class: 'col s12') do %>
     <div class="row">
       <div class="input-field col s2 offset-s3">
@@ -48,7 +48,7 @@
 
     <div class="row">
       <label class="col s2 offset-s2">
-	<input type="checkbox" />
+	<input onclick="toogleShowAll(this);" type="checkbox" />
 	<span>Show all</span>
       </label>
     </div>
@@ -122,5 +122,17 @@ function updateStatus(selector){
     success: function(data, textStatus, jqXHR){ },
     error: function(jqXHR, textStatus, errorThrown){ }
   })
+}
+
+function toogleShowAll(obj){
+  let toogle = $(obj);
+  console.log(toogle.val());
+  if(toogle.val() == 'on') {
+    $('.task_done').show();
+    toogle.val('off');
+  } else {
+    $('.task_done').hide();
+    toogle.val('on');
+  }
 }
 </script>
