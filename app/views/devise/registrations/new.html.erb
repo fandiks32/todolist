@@ -45,10 +45,11 @@
 	<div class="z-depth-1 grey lighten-4 row" style="display: inline-block;padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
 	  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: 'col s12', id: 'reg-form') do |f| %>
 	  <%= render "devise/shared/error_messages", resource: resource %>
-	  <div class="row">
-	    <%= content_tag(:div, f.text_field(:firstname) + content_tag(:label, 'Firstname', for: 'user_firstname'), class: 'input-field col s6') %>
-	    <%= content_tag(:div, f.text_field(:lastname) + content_tag(:label, 'Lastname', for: 'user_lastname'), class: 'input-field col s6') %>
-	  </div>
+
+	  <!-- TODO: <div class="row"> -->
+	  <!--   <%= content_tag(:div, f.text_field(:firstname) + content_tag(:label, 'Firstname', for: 'user_firstname'), class: 'input-field col s6') %> -->
+	  <!--   <%= content_tag(:div, f.text_field(:lastname) + content_tag(:label, 'Lastname', for: 'user_lastname'), class: 'input-field col s6') %> -->
+	  <!-- </div> -->
 	  <div class='row'>
 	    <%= content_tag(:div, f.email_field(:email) + content_tag(:label, 'Email', for: 'user_email'), { class: 'input-field col s12' }) %>
 	  </div>
